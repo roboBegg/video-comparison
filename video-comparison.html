@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tow Video Quality Comparison</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .video-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .video-wrapper {
+            width: 48%;
+        }
+        video {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>tow Video Quality Comparison</h1>
+    <div class="choseVideos">
+        <label for="video1">Video 1:</label>
+        <input type="file" id="video1" name="video1">
+        <label for="video2">Video 2:</label>
+        <input type="file" id="video2" name="video2">
+    </div>
+    <div class="video-container">
+        <div class="video-wrapper">
+            <video controls ontimeupdate="changeVideoTime(this)">
+                Your browser does not support the video tag.
+            </video>
+            <p>Video 1</p>
+        </div>
+        <div class="video-wrapper">
+            <video controls ontimeupdate="changeVideoTime(this)">
+                Your browser does not support the video tag.
+            </video>
+            <p>Video 2</p>
+        </div>
+        <script>
+            const video1 = document.querySelector('#video1');
+            const video2 = document.querySelector('#video2');
+            
+            video1.addEventListener('change', function() {
+                const file = this.files[0];
+                const video = document.querySelectorAll('video')[0];
+                video.src = URL.createObjectURL(file);
+                document.querySelectorAll('p')[0].textContent = this.files[0].name;
+            });
+            
+            video2.addEventListener('change', function() {
+                const file = this.files[0];
+                const video = document.querySelectorAll('video')[1];
+                video.src = URL.createObjectURL(file);
+                document.querySelectorAll('p')[1].textContent = this.files[0].name;
+            });
+            
+            function changeVideoTime(thisVideo) {
+                const video1 = document.querySelectorAll('video')[0];
+                const video2 = document.querySelectorAll('video')[1];
+                if (thisVideo === video1) {
+                    video2.currentTime = thisVideo.currentTime;
+                } else {
+                    video1.currentTime = thisVideo.currentTime;
+                }
+            }
+
+        </script>
+    </div>
+</body>
+</html>
